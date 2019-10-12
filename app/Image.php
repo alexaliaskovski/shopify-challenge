@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Product;
 
 class Image extends Model
 {
@@ -58,4 +59,14 @@ class Image extends Model
     //     'url' => '',
     //     'alt_text' => '',
     // ];
+
+    /**
+     * Fetches the product associated to this image.
+     * 
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function product()
+    {
+        return $this->belongsTo(Product::class);
+    }
 }

@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Image;
 
 class Product extends Model
 {
@@ -49,12 +50,24 @@ class Product extends Model
     ];
 
     /**
+     * The model's default values for attributes.
+     * 
      * @var array
      */
-    protected $attributes = [
-        'price' => 0.00,
-        'discount' => 0.00,
-        'quantity_stocked' => 0,
-        'quantity_sold' => 0,
-    ];
+    // protected $attributes = [
+    //     'price' => 0.00,
+    //     'discount' => 0.00,
+    //     'quantity_stocked' => 0,
+    //     'quantity_sold' => 0,
+    // ];
+
+    /**
+     * Fetches all images associated to this product.
+     * 
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function images()
+    {
+        return $this->hasMany(Image::class);
+    }
 }
