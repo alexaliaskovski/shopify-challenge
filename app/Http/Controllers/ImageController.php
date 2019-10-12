@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\ImageRepository;
+use App\Models\Product;
 use Illuminate\Http\Response;
 use Illuminate\Http\Request;
 
@@ -33,12 +34,13 @@ class ImageController extends Controller
      */
     public function addImage(Request $request)
     {
-        // TODO: grab product uuid by finding associated product name
-        // ... $productId = ...
+        // TODO: wrap in try/catch
+        $productId = Product::where('name', $request->json()->get('product_name'))
+            ->firstOrFail()->product_id;
 
         $image = $this->imageRepository->create([
             "product_id" => $productId,
-            'name' => $request->json()->get('name'),
+            "name" => $request->json()->get('name'),
             "url" => $request->json()->get('url'),
             "alt_text" => $request->json()->get('alt_text'),
         ]);

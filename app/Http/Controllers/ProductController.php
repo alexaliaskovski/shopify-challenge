@@ -33,11 +33,7 @@ class ProductController extends Controller
      */
     public function addProduct(Request $request)
     {
-        // TODO: create random product uuid.
-        // ... $productId = ...
-
         $product = $this->productRepository->create([
-            "product_id" => $productId,
             "name" => $request->json()->get('name'),
             "price" => $request->json()->get('price'),
             "discount" => $request->json()->get('discount'),
