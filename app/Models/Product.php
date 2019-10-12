@@ -1,12 +1,15 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
+use App\Models\Image;
+use App\Traits\UsesUuidTrait;
 use Illuminate\Database\Eloquent\Model;
-use App\Image;
 
 class Product extends Model
 {
+    use UsesUuidTrait;
+
     /**
      * The name of the table associated to this model.
      * 

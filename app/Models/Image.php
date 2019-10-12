@@ -1,9 +1,9 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
+use App\Models\Product;
 use Illuminate\Database\Eloquent\Model;
-use App\Product;
 
 class Image extends Model
 {
@@ -45,8 +45,11 @@ class Image extends Model
      * 
      * @var array
      */
-    protected $guarded = [
+    protected $fillable = [
         'product_id',
+        'url',
+        'alt_text',
+        'name',
     ];
 
     /**
