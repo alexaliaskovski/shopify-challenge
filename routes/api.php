@@ -14,6 +14,6 @@ use Illuminate\Http\Response;
 |
 */
 
-Route::get('/photo/{url}', 'ImageController@addImage');
-Route::post('/photo/{url}', 'ImageController@addImage');
+//Route::get('/photo/{url}', 'ImageController@addImage');
+Route::post('/photo', 'ImageController@addImage');
 //Route::get('/', 'ImageController@addImage');

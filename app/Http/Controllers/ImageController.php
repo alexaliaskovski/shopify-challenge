@@ -35,8 +35,11 @@ class ImageController extends Controller
     public function addImage(Request $request)
     {
         $image = $this->imageRepository->create([
+            "product_id" => $request->json()->get('product_id'),
             "url" => $request->json()->get('url'),
+            "alt_text" => $request->json()->get('alt_text'),
         ]);
+        
         return response()->json($image, 200);
     }
 }

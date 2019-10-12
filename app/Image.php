@@ -18,7 +18,7 @@ class Image extends Model
      * 
      * @var string
      */
-    protected $primaryKey = "url";
+    protected $primaryKey = "product_id";
 
     /**
      * @var boolean
@@ -26,26 +26,21 @@ class Image extends Model
     public $incrementing = false;
 
     /**
-     * @var string
-     */
-    protected $keyType = 'string';
-
-    /**
      * @var array
      */
     protected $fillable = [
+        'product_id',
         'url',
         'alt_text',
-        'type',
     ];
 
     /**
      * @var array
      */
     protected $attributes = [
+        'product_id' => '',
         'url' => '',
         'alt_text' => '',
-        'type' => 'jpg',
     ];
 
     /**

@@ -9,10 +9,10 @@ class ImageRepository
     /**
      * Creates a new image model to add to database
      * 
-     * $param string url
+     * @param string url
      */
-    public function create(array $url)
+    public function create(array $context)
     {
-        return Image::create($url);
+        return Image::create($context);
     }
 }
