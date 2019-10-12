@@ -15,6 +15,7 @@ class CreateProductsTable extends Migration
     {
         Schema::create('products', function (Blueprint $table) {
             $table->uuid('product_id')->primary();
+            $table->string('name');
             $table->double('price', 8, 2);
             $table->double('discount', 8, 2);
             $table->bigInteger('quantity_stocked');
