@@ -7,9 +7,9 @@ use App\Image;
 class ImageRepository
 {
     /**
-     * Creates a new image model to add to database
+     * Creates a new image model to add to database.
      * 
-     * @param string url
+     * @param array $context
      */
     public function create(array $context)
     {

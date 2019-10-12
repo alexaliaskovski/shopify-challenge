@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\User;
 use App\Http\Controllers\Controller;
 use App\ImageRepository;
 use Illuminate\Http\Response;
@@ -27,19 +26,23 @@ class ImageController extends Controller
     }
 
     /**
-     * Add a new image to database
+     * Add a new image to database.
      * 
      * @param Request $request
      * @param string $url
      */
     public function addImage(Request $request)
     {
+        // TODO: grab product uuid by finding associated product name
+        // ... $productId = ...
+
         $image = $this->imageRepository->create([
-            "product_id" => $request->json()->get('product_id'),
+            "product_id" => $productId,
+            'name' => $request->json()->get('name'),
             "url" => $request->json()->get('url'),
             "alt_text" => $request->json()->get('alt_text'),
         ]);
-        
+
         return response()->json($image, 200);
     }
 }
