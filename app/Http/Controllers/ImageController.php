@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
-use App\ImageRepository;
+use App\Repositories\ImageRepository;
 use App\Models\Image;
 use App\Models\Product;
 use Illuminate\Http\Response;

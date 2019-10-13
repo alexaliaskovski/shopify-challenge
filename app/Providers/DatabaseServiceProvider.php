@@ -2,8 +2,8 @@
 
 namespace App\Providers;
 
-use App\ImageRepository;
-use App\ProductRepository;
+use App\Repositories\ImageRepository;
+use App\Repositories\ProductRepository;
 use Illuminate\Support\ServiceProvider;
 
 class DatabaseServiceProvider extends ServiceProvider
