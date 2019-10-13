@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Models\Product;
 use App\ProductRepository;
 use Illuminate\Http\Response;
 use Illuminate\Http\Request;
@@ -33,14 +34,16 @@ class ProductController extends Controller
      */
     public function addProduct(Request $request)
     {
-        $product = $this->productRepository->create([
-            "name" => $request->json()->get('name'),
-            "price" => $request->json()->get('price'),
-            "discount" => $request->json()->get('discount'),
-            "quantity_stocked" => $request->json()->get('quantity_stocked'),
-            "quantity_sold" => $request->json()->get('quantity_sold'),
-        ]);
+        if (Product::where('name', $request->json()->get('name'))->exists()) {
+            return response()->json(['message' => "A product by that name already exists."], 409);
+        }
 
-        return response()->json($product, 200);
+        // TODO: complete this exception handling properly. currently assumes something may be thrown, but I haven't configured any throwing...
+        try {    
+            $product = $this->productRepository->create($request->all());
+            return response()->json($product, 200);
+        } catch (Exception $e) {
+            return response()->json(['message' => $e->getMessage()], 409);
+        }
     }
 }

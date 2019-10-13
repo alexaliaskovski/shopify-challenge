@@ -57,12 +57,11 @@ class Product extends Model
      * 
      * @var array
      */
-    // protected $attributes = [
-    //     'price' => 0.00,
-    //     'discount' => 0.00,
-    //     'quantity_stocked' => 0,
-    //     'quantity_sold' => 0,
-    // ];
+    protected $attributes = [
+        'discount' => '0.00',
+        'quantity_stocked' => '0',
+        'quantity_sold' => '0',
+    ];
 
     /**
      * Fetches all images associated to this product.

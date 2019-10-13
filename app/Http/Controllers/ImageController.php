@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\ImageRepository;
+use App\Models\Image;
 use App\Models\Product;
 use Illuminate\Http\Response;
 use Illuminate\Http\Request;
@@ -34,17 +35,12 @@ class ImageController extends Controller
      */
     public function addImage(Request $request)
     {
-        // TODO: wrap in try/catch
-        $productId = Product::where('name', $request->json()->get('product_name'))
-            ->firstOrFail()->product_id;
-
-        $image = $this->imageRepository->create([
-            "product_id" => $productId,
-            "name" => $request->json()->get('name'),
-            "url" => $request->json()->get('url'),
-            "alt_text" => $request->json()->get('alt_text'),
-        ]);
-
-        return response()->json($image, 200);
+        // TODO: complete this exception handling properly. currently assumes something may be thrown, but I haven't configured any throwing...
+        try {
+            $image = $this->imageRepository->create($request->all());
+            return response()->json($image, 200);
+        } catch (Exception $e) {
+            return response()->json(['message' => $e->getMessage()], 409);
+        }
     }
 }
