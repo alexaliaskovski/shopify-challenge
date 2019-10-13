@@ -13,31 +13,18 @@ class ImageRepository
 {
     /**
      * Creates a new image model to add to database.
+     * ASSUMES ALL REQUIRED FIELDS ARE PROVIDED. TODO: VALIDATION
      * 
      * @param array $context
      */
-    public function create(Request $request)
+    public function create(array $context)
     {
-        // checks if product the user wants to add an image to exists.
-        try {
-            $productId = Product::where('name', $request->json()->get('product_name'))
-                ->firstOrFail()->product_id;
-        } catch (ModelNotFoundException $e) {
-            return response()->json(['message' => $e->getMessage()], 404);
-        }
+        // TODO: put validation and some throws here...
+     
+        // checks if product the user wants to add an image to existing product.
+        $productId = Product::where('name', $request->json()->get('product_name'))
+            ->firstOrFail()->product_id;
 
-        $url = $request->json()->get('url');
-        $name = $request->json()->get('name');
-        $alt_text = $request->json()->get('alt_text');
-
-        // checks if user provided an image URL.
-        if (!$url) { return response()->json(['message' => 'No image URL provided.'], 400); } 
-
-        return Image::create([
-            "product_id" => $productId,
-            "name" => $name,
-            "url" => $url,
-            "alt_text" => $alt_text,
-        ]);
+        return Image::create($context);
     }
 }
