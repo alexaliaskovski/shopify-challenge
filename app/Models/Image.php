@@ -3,10 +3,13 @@
 namespace App\Models;
 
 use App\Models\Product;
+use App\Traits\UsesUuidTrait;
 use Illuminate\Database\Eloquent\Model;
 
 class Image extends Model
 {
+    use UsesUuidTrait;
+
     /**
      * The name of the table associated to this model.
      * 
@@ -19,7 +22,7 @@ class Image extends Model
      * 
      * @var string
      */
-    protected $primaryKey = "product_id";
+    protected $primaryKey = "image_id";
 
     /**
      * The "type" of the auto-incrementing ID.
@@ -57,11 +60,10 @@ class Image extends Model
      * 
      * @var array
      */
-    // protected $attributes = [
-    //     'product_id' => '',
-    //     'url' => '',
-    //     'alt_text' => '',
-    // ];
+    protected $attributes = [
+        'name' => '',
+        'alt_text' => '',
+    ];
 
     /**
      * Fetches the product associated to this image.
@@ -70,6 +72,6 @@ class Image extends Model
      */
     public function product()
     {
-        return $this->belongsTo(Product::class);
+        return $this->belongsTo(Product::class, 'product_id', 'product_id');
     }
 }
