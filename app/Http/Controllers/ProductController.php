@@ -33,13 +33,7 @@ class ProductController extends Controller
      */
     public function addProduct(Request $request)
     {
-        $product = $this->productRepository->create([
-            "name" => $request->json()->get('name'),
-            "price" => $request->json()->get('price'),
-            "discount" => $request->json()->get('discount'),
-            "quantity_stocked" => $request->json()->get('quantity_stocked'),
-            "quantity_sold" => $request->json()->get('quantity_sold'),
-        ]);
+        $product = $this->productRepository->create($request);
 
         return response()->json($product, 200);
     }

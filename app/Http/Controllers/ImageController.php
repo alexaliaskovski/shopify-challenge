@@ -35,15 +35,9 @@ class ImageController extends Controller
     public function addImage(Request $request)
     {
         // TODO: wrap in try/catch
-        $productId = Product::where('name', $request->json()->get('product_name'))
-            ->firstOrFail()->product_id;
+        
 
-        $image = $this->imageRepository->create([
-            "product_id" => $productId,
-            "name" => $request->json()->get('name'),
-            "url" => $request->json()->get('url'),
-            "alt_text" => $request->json()->get('alt_text'),
-        ]);
+        $image = $this->imageRepository->create($request);
 
         return response()->json($image, 200);
     }
