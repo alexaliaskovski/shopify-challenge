@@ -1,10 +1,9 @@
 <?php
 
-namespace App;
+namespace App\Repositories;
 
 use App\Models\Product;
-use Illuminate\Http\Response;
-use Illuminate\Http\Request;
+use App\Models\Image;
 
 class ProductRepository
 {
@@ -58,11 +57,11 @@ class ProductRepository
         $product = Product::findOrFail($productUuid);
 
         // destroy all images associated to product as well.
-        $images = $product->images;
-        array_map(function($image) {
+        $images = $this->findImagesByProductId($productUuid);
+        $images = $images->map(function($image) {
             return $image->image_id;
-        }, $images);
-        Image::destroy($images);
+        });
+        Image::destroy($images->toArray());
         
         return $product->delete();
     }
@@ -76,7 +75,7 @@ class ProductRepository
     public function findImagesByProductId(string $productUuid)
     {
         $product = Product::findOrFail($productUuid);
-        $images = $product->images;
+        $images = $product->images()->getResults();
         return $images;
     }
 }

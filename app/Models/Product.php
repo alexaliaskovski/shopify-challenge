@@ -70,6 +70,7 @@ class Product extends Model
      */
     public function images()
     {
+        //dd($this->hasMany(Image::class, 'product_id', 'product_id')->getResults());
         return $this->hasMany(Image::class, 'product_id', 'product_id');
     }
 }

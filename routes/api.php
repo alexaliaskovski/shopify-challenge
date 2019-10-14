@@ -16,4 +16,8 @@ use Illuminate\Http\Response;
 
 Route::post('/photo', 'ImageController@addImage');
 Route::post('/product', 'ProductController@addProduct');
-//Route::get('/', 'ImageController@addImage');
+
+Route::delete('/photo/id/{image_id}', 'ImageController@deleteImage');
+Route::delete('/product/id/{product_id}', 'ProductController@deleteProduct');
+
+

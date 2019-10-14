@@ -2,6 +2,9 @@
 
 namespace App\Providers;
 
+use App\Repositories\ImageRepository;
+use App\Repositories\ProductRepository;
+use App\Repositories\StoreService;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -13,7 +16,17 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        $this->app->singleton(StoreService::class, function() {
+            $productRepo = $this->app->make(ProductRepository::class);
+            $imageRepo = $this->app->make(ImageRepository::class);
+
+            $storeService = new StoreService(
+                $productRepo,
+                $imageRepo
+            );
+
+            return $storeService;
+        });
     }
 
     /**

@@ -4,33 +4,33 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Models\Product;
-use App\Repositories\ProductRepository;
+use App\Services\StoreService;
 use Illuminate\Http\Response;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
     /**
-     * @var ProductRepository
+     * @var StoreService
      */
-    protected $productRepository;
+    protected $storeService;
 
     /**
      * Constructor for ProductController.
      * 
-     * @param ProductRepository $productRepository
+     * @param StoreService $storeService
      */
     public function __construct(
-        ProductRepository $productRepository
+        StoreService $storeService
     ){
-        $this->productRepository = $productRepository;
+        $this->storeService = $storeService;
     }
 
     /**
      * Add a new product to database.
      * 
      * @param Request $request
-     * @param string $url
+     * @return Response
      */
     public function addProduct(Request $request)
     {
@@ -40,8 +40,25 @@ class ProductController extends Controller
 
         // TODO: complete this exception handling properly. currently assumes something may be thrown, but I haven't configured any throwing...
         try {    
-            $product = $this->productRepository->create($request->all());
+            $product = $this->storeService->addProduct($request);
             return response()->json($product, 200);
+        } catch (Exception $e) {
+            return response()->json(['message' => $e->getMessage()], 409);
+        }
+    }
+
+    /**
+     * Removes a product from the database by unique uuid.
+     * 
+     * @param Request $request
+     * @param string $uuid
+     * @return Reponse
+     */
+    public function deleteProduct(Request $request, string $uuid)
+    {
+        try {
+            $image = $this->storeService->deleteProduct($request, $uuid);
+            return response()->json($image, 200);
         } catch (Exception $e) {
             return response()->json(['message' => $e->getMessage()], 409);
         }

@@ -1,12 +1,10 @@
 <?php
 
-namespace App;
+namespace App\Repositories;
 
 use App\Models\Image;
 use App\Models\Product;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
-use Illuminate\Http\Response;
-use Illuminate\Http\Request;
 use Exception;
 
 class ImageRepository
