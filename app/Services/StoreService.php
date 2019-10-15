@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Repositories\ImageRepository;
 use App\Repositories\ProductRepository;
+use Exception;
 use Illuminate\Http\Request;
 
 class StoreService
@@ -81,5 +82,47 @@ class StoreService
     {
         $isDeleted = $this->productRepository->destroyById($uuid);
         return $isDeleted;
+    }
+
+    /**
+     * 'Sell' a cart-worth of products.
+     * 
+     * @param Request $request
+     * @return array
+     */
+    public function sellCart(Request $request)
+    {
+        $cart = $request->all();
+        $products = array();
+        foreach ($cart as $product_id => $quantity_sold) {
+            array_push($products, $this->sellProduct($product_id, $quantity_sold));
+        };
+
+        return $products;
+    }
+
+
+    /**
+     * 'Sell' one product.
+     * 
+     * @param string $product_id
+     * @param int $quantity_sold
+     * @return Product
+     */
+    public function sellProduct(string $product_id, int $quantity_sold)
+    {
+        $product = $this->productRepository->findById($product_id);
+        if ($product->quantity_stocked < $quantity_sold) {
+            throw new Exception("There are not enough items in stock.");
+        }
+
+        $newQuantityStocked = $product->quantity_stocked - $quantity_sold;
+        $newQuantitySold = $product->quantity_sold + $quantity_sold;
+        $this->productRepository->updateById($product_id, [
+            'quantity_stocked' => $newQuantityStocked,
+            'quantity_sold' => $newQuantitySold,
+        ]);
+
+        return $product;
     }
 }

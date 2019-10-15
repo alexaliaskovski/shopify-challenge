@@ -63,4 +63,20 @@ class ProductController extends Controller
             return response()->json(['message' => $e->getMessage()], 409);
         }
     }
+
+    /**
+     * 'Sell' a cart-worth of products.
+     * 
+     * @param Request $request
+     * @return Response
+     */
+    public function sellCart(Request $request)
+    {
+        try {
+            $cart = $this->storeService->sellCart($request);
+            return response()->json($cart, 200);
+        } catch (Exception $e) {
+            return response()->json(['message' => $e->getMessage()], 409);
+        }
+    }
 }

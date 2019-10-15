@@ -20,4 +20,6 @@ Route::post('/product', 'ProductController@addProduct');
 Route::delete('/photo/id/{image_id}', 'ImageController@deleteImage');
 Route::delete('/product/id/{product_id}', 'ProductController@deleteProduct');
 
+Route::put('/product/sell', 'ProductController@sellCart');
+
 

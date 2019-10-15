@@ -75,7 +75,7 @@ class ImageRepository
     public function findProductByImageId(string $imageUuid)
     {
         $image = Image::findOrFail($imageUuid);
-        $product = $image->product;
+        $product = $image->product()->getResults();
         return $product;
     }
 }
