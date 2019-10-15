@@ -57,7 +57,7 @@ class ImageController extends Controller
     {
         try {
             $image = $this->storeService->deleteImage($request, $uuid);
-            return response()->json($image, 200);
+            return response()->json([$image], 200);
         } catch (Exception $e) {
             return response()->json(['message' => $e->getMessage()], 409);
         }
